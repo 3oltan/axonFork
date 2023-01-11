@@ -98,7 +98,7 @@ export default function IdentifierLabelWithButtons({
     if (type === "Principal") shortId = shortPrincipal(rawId);
     else if (type === "Account") shortId = shortAccount(rawId);
   }
-  if (type === "STRING" || isShort) {
+  if (type === "String" || isShort) {
     shortId = shortAccount(rawId);
   }
 
