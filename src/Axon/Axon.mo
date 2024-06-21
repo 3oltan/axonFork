@@ -766,8 +766,14 @@ shared ({ caller = creator }) actor class AxonService() = this {
         #AxonCommand((command, ?Result.mapOk<(T.AxonFull, T.AxonCommandExecution), T.AxonCommandExecution, T.Error>(response, func(t) { t.1 })))
       };
       case (#CanisterCommand((command,_))) {
-        let response = await ExperimentalInternetComputer.call(command.canister, command.functionName, command.argumentBinary);
-        #CanisterCommand((command, ?{reply = response}));
+        try{
+          let response = await ExperimentalInternetComputer.call(command.canister, command.functionName, command.argumentBinary);
+          #CanisterCommand((command, ?{reply = response}));
+        } catch(e){
+          Debug.print(debug_show(Error.message(e));
+          return assert(false);
+        };
+        
       }
     };
     // Re-select axon
